@@ -71,18 +71,22 @@ inBounds x n =
         let (f, l) = rowBounds n
         in x >= f && x <= l
 
-test :: Integer -> Integer -> Int
-test a b = if (inBounds a b && isPrime a) then 1 else 0
+test :: Integer -> Integer -> [(Integer, Integer)]
+test a b = if (inBounds a b && isPrime a) then [(a,b)] else []
 
-testAbove x n = [test x n,test (x+1) n,test (x+2) n]
+testAbove :: Integer -> Integer -> [(Integer, Integer)]
+testAbove x n = test x n ++ test (x+1) n ++ test (x+2) n
 
-testBelow x n = [test (x-1) n,test x n,test (x+1) n]
+testBelow :: Integer -> Integer -> [(Integer, Integer)]
+testBelow x n = test (x-1) n ++ test x n ++ test (x+1) n
 
 primeTriplet x n = 
         let above = testAbove (x-n) (n-1)
-            below = (x+n) (n+1)
-        in if sum above:below >= 2 then True else 
-                if sum above > 0 then 
+            below = testBelow (x+n) (n+1)
+        in if length (above++below) >= 2 then True else 
+              if (length above) > 0 && (length$testAbove ((fst (head above))-(snd (head above))) ((snd$head above)-1)) > 0 then True else
+              if (length below) > 0 && (length$testBelow ((fst (head below))+(snd (head below))) ((snd$head below)+1)) > 0 then True else False
+                 
                
 --      sum [test (x-n) (n-1),test (x-n+1) (n-1),test (x-n+2) (n-1),
 --           test (x+n-1) (n+1),test (x+n) (n+1),test (x+n+1) (n+1)] >= 2
@@ -92,3 +96,4 @@ funcS n =
         let (f, l) = rowBounds n
         in sum [x | x <- (primesFromTo f l), primeTriplet x n]     
         
+euler_196 = (funcS 5678027) + (funcS 7208785)
