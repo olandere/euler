@@ -1,5 +1,4 @@
-
-
+package euler
 
 object Euler76 {
 
