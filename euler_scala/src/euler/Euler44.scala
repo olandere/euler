@@ -1,3 +1,4 @@
+package euler
 
 object Euler44 {
 

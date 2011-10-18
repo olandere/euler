@@ -1,3 +1,5 @@
+package euler
+
 object Euler53 {
 
   def prodTo(b: BigInt, e: BigInt): BigInt = {
