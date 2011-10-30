@@ -1,5 +1,7 @@
 package euler
 
+import scala.collection.mutable._
+
 object Euler346 {
 
   val Repunit = """1+""".r
@@ -16,7 +18,7 @@ object Euler346 {
   def updateSets(x : BigInt) {
 //    if (possibleSet(x)) strongRepunits = strongRepunits + x
 //    else possibleSet = possibleSet + x
-    strongRepunits = strongRepunits + x
+    strongRepunits.add(x)
   }
 
   def main(args: Array[String]) {
@@ -46,11 +48,15 @@ object Euler346 {
     val maxBase = 1000000
 //    for {x <- intStream(2);
 //      if (x < term);
+    MathUtils.timed {
     intStream(2).takeWhile(_<=maxBase).foreach{x =>
       val l = repUnitStream.map(MathUtils.fromBase(_, x)).takeWhile(_<term)
-      println(x+": "+l.toList)
+    //  println(x+": "+l.toList)
       l.foreach(updateSets(_))//.filter(_<50).toList)
     }
+    }
+
+  //  println(MathUtils.fromBase(111, 1000000))
     println(strongRepunits.sum)
   }
 }
