@@ -6,6 +6,14 @@ import scala.math._
 
 object MathUtils {
 
+  def timed[T](thunk: => T) = {
+   val t1 = System.nanoTime
+   val ret = thunk
+   val time = System.nanoTime - t1
+   println("Executed in: " + time/1000000.0 + " millisec")
+   ret
+ }
+
   def quadratic(a : Double, b : Double, c : Double) = {
     val q = -0.5 * (b + math.signum(b)*math.sqrt(b*b-4*a*c))
     (q/a, c/q)
