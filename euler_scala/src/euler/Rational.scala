@@ -1,7 +1,7 @@
 package euler
 
 class Rational(val n: BigInt, val d: BigInt) extends Ordered[Rational] {
-  
+
   override def toString = "" + n + "/" + d
 
   def +(operand: Rational): Rational = {
@@ -26,6 +26,18 @@ class Rational(val n: BigInt, val d: BigInt) extends Ordered[Rational] {
 
   def compare(that: Rational) = {
     (n * that.d).compare(that.n * d)
+  }
+
+  def mediant(that: Rational) = {
+    Rational(n + that.n, d + that.d)
+  }
+
+  def toFloat = {
+    n.toFloat/d.toFloat
+  }
+
+  def toDouble = {
+    n.toDouble/d.toDouble
   }
 }
 
