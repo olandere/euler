@@ -5,32 +5,13 @@ import collection.mutable.{ListBuffer, HashMap}
 
 object Euler62 {
 
-  val zeros = 1
-  val ones = zeros << 3
-  val twos = ones << 3
-  val threes = twos << 3
-  val fours = threes << 3
-  val fives = fours << 3
-  val sixes = fives << 3
-  val sevens = sixes << 3
-  val eights = sevens << 3
-  val nines = eights << 3
-
   def bitVector(n: Long): Int = {
-    if (n == 0) 0 else {
-      val r = (n % 10) match {
-        case 0 => zeros
-        case 1 => ones
-        case 2 => twos
-        case 3 => threes
-        case 4 => fours
-        case 5 => fives
-        case 6 => sixes
-        case 7 => sevens
-        case 8 => eights
-        case 9 => nines
-      }
-      r + bitVector(n/10)
+    if (n == 0) {
+      0
+    }
+    else {
+      val r = 1 << 3 * (n % 10)
+      r + bitVector(n / 10)
     }
   }
 
