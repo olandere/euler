@@ -130,13 +130,23 @@ object MathUtils {
   }
 
   def isPrime(n : Int) = {
-    gcd(n, smallPrimes) == 1 && sprp(n, 2) && sprp(n, 3) //&& BigInt(n).isProbablePrime(5)
+    n match {
+      case 2 => true
+      case 3 => true
+      case 5 => true
+      case 7 => true
+      case 11 => true
+      case 13 => true
+      case _ =>  gcd(n, smallPrimes) == 1 && sprp(n, 2) && sprp(n, 3) //&& BigInt(n).isProbablePrime(5)
+    }
   }
 
-  def isPrime(n : Long) = {
+  def isPrime(n : Long): Boolean = {
+    if (n < 20) isPrime(n.toInt)  else
     gcd(n, smallPrimes) == 1 && sprp(n, 2) && sprp(n, 3)//BigInt(n).isProbablePrime(5)
   }
 
+  //Strong probable prime function
   def sprp(n: Long, a: Long) : Boolean = {
 
     @tailrec
@@ -321,5 +331,19 @@ object MathUtils {
  //   miss = 0
     partitionCache.put((1, n), r)
     r
+  }
+
+  def nearestSquare(n: Int): Int = {
+    @tailrec
+    def helper(lo: Int, n: Int): Int = {
+      val low = lo * lo
+      val hi = (lo + 1) * (lo + 1)
+      if (n - low > 0 && hi - n > 0) {
+        lo
+      } else {
+        helper(lo + 1, n)
+      }
+    }
+    helper(0, n)
   }
 }
