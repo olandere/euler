@@ -30,18 +30,18 @@ object Euler58 {
     allValues(n).filter(isPrime).length
   }
 
+  //26241
   def main(args: Array[String]) {
     //  val l = for (n <- odds.tail.takeWhile(_ < 9)) yield numPrimes(n)//(allValues(n), numPrimes(n))//(ne(n), nw(n), se(n), sw(n))
     //  println(l.toList)
     timed {
-      var ratio: Float = 1
+      var ratio = 1.0
       var n = 1
       var primes = 0
       while (ratio > 0.1) {
         n = n + 2
         primes = primes + numPrimes(n)
         ratio = primes / ((2 * n - 2) + 1).toFloat
-
       }
       println("" + n + " " + ratio)
     }
